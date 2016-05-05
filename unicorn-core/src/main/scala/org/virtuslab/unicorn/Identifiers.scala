@@ -2,8 +2,13 @@ package org.virtuslab.unicorn
 
 import slick.lifted.MappedTo
 
+trait IdentifiersWrapper[Underlying] {
+  val identifiers: Identifiers[Underlying]
+}
+
 trait Identifiers[Underlying] {
-  self: Unicorn[Underlying] =>
+
+  def ordering: Ordering[Underlying]
 
   /**
    * Base trait for implementing ids.
@@ -35,5 +40,9 @@ trait Identifiers[Underlying] {
     /** @return id of entity (optional, entities does not have ids before save) */
     def id: Option[Id]
   }
+
+  import scala.language.higherKinds
+
+  type IdCompanion[Id <: BaseId]
 
 }

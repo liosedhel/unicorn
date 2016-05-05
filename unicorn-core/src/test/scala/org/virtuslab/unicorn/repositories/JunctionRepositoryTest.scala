@@ -1,13 +1,14 @@
 package org.virtuslab.unicorn.repositories
 
 import org.virtuslab.unicorn.TestUnicorn.driver.api._
-import org.virtuslab.unicorn.{ BaseTest, LongTestUnicorn }
+import org.virtuslab.unicorn.{ BaseTest, LongTestUnicorn, LongUnicornIdentifiers }
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class JunctionRepositoryTest extends BaseTest[Long] with LongTestUnicorn {
 
   import unicorn._
+  import identifiers._
 
   behavior of classOf[JunctionRepository[_, _, _]].getSimpleName
 

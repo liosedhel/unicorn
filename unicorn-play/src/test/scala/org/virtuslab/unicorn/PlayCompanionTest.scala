@@ -1,6 +1,6 @@
 package org.virtuslab.unicorn
 
-import LongUnicornPlay._
+import LongUnicornPlayIdentifiers._
 import play.api.data.format.Formatter
 import play.api.mvc.{ PathBindable, QueryStringBindable }
 import play.api.libs.json._

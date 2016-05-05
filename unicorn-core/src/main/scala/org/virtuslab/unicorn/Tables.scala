@@ -4,8 +4,9 @@ import slick.lifted.Index
 import slick.lifted.ProvenShape
 
 protected[unicorn] trait Tables[Underlying] extends TypeMappers {
-  self: HasJdbcDriver with Identifiers[Underlying] =>
+  self: HasJdbcDriver with IdentifiersWrapper[Underlying] =>
 
+  import identifiers._
   import driver.api._
 
   /**

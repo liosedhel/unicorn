@@ -1,39 +1,39 @@
 package org.virtuslab.unicorn
 
-import play.api.Play
+import com.google.inject.Inject
 import play.api.data.format.Formats._
 import play.api.data.format.Formatter
-import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Format
 import play.api.mvc.{ PathBindable, QueryStringBindable }
+import slick.backend.DatabaseConfig
 import slick.driver.JdbcProfile
 
-trait UnicornPlayLike[Underlying]
+abstract class UnicornPlayLike[Underlying](dbConfig: DatabaseConfig[JdbcProfile])
     extends Unicorn[Underlying]
-    with PlayIdentifiers[Underlying]
     with HasJdbcDriver {
-
-  private lazy val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
-
-  def underlyingFormatter: Formatter[Underlying]
-
-  def underlyingFormat: Format[Underlying]
-
-  def underlyingQueryStringBinder: QueryStringBindable[Underlying]
-
-  def underlyingPathBinder: PathBindable[Underlying]
-
-  override type IdCompanion[Id <: BaseId] = PlayCompanion[Id]
 
   override lazy val driver = dbConfig.driver
 
+  val db = dbConfig.db
+
 }
 
-class UnicornPlay[Underlying](implicit val underlyingFormatter: Formatter[Underlying],
-  val underlyingFormat: Format[Underlying],
-  val underlyingQueryStringBinder: QueryStringBindable[Underlying],
-  val underlyingPathBinder: PathBindable[Underlying],
-  val ordering: Ordering[Underlying])
-    extends UnicornPlayLike[Underlying]
+abstract class UnicornPlay[Underlying](dbConfig: DatabaseConfig[JdbcProfile])
+  extends UnicornPlayLike[Underlying](dbConfig)
 
-object LongUnicornPlay extends UnicornPlay[Long]
+class LongUnicornPlay @Inject() (dbConfigProvider: DatabaseConfig[JdbcProfile]) extends UnicornPlay[Long](dbConfigProvider) {
+  override val identifiers: Identifiers[Long] = LongUnicornPlayIdentifiers
+}
+
+object LongUnicornPlayIdentifiers extends PlayIdentifiersImpl[Long] {
+  override val ordering: Ordering[Long] = implicitly[Ordering[Long]]
+  override type IdCompanion[Id <: BaseId] = PlayCompanion[Id]
+}
+
+abstract class PlayIdentifiersImpl[Underlying](implicit val underlyingFormatter: Formatter[Underlying],
+    val underlyingFormat: Format[Underlying],
+    val underlyingQueryStringBinder: QueryStringBindable[Underlying],
+    val underlyingPathBinder: PathBindable[Underlying],
+    val ordering: Ordering[Underlying]) extends PlayIdentifiers[Underlying] with Identifiers[Underlying] {
+
+}

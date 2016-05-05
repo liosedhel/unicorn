@@ -2,14 +2,15 @@ package org.virtuslab.unicorn.repositories
 
 import java.sql.SQLException
 
-import org.virtuslab.unicorn.{ HasJdbcDriver, Identifiers, Tables }
+import org.virtuslab.unicorn.{ HasJdbcDriver, Identifiers, IdentifiersWrapper, Tables }
 
 import scala.concurrent.ExecutionContext
 
 protected[unicorn] trait IdRepositories[Underlying] {
-  self: HasJdbcDriver with Identifiers[Underlying] with Tables[Underlying] with Repositories[Underlying] =>
+  self: HasJdbcDriver with IdentifiersWrapper[Underlying] with Tables[Underlying] with Repositories[Underlying] =>
 
   import driver.api.{ Table => _, _ }
+  import identifiers._
 
   /**
    * Base class for all queries with an [[org.virtuslab.unicorn.Identifiers.BaseId]].

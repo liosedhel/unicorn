@@ -12,6 +12,7 @@ trait AbstractUserTable {
 
   import unicorn._
   import unicorn.driver.api._
+  import identifiers._
 
   case class UserId(id: Long) extends BaseId
 

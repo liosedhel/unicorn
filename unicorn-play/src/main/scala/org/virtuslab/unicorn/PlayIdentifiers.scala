@@ -6,8 +6,8 @@ import play.api.mvc.{ PathBindable, QueryStringBindable }
 
 import play.api.libs.json._
 
-protected[unicorn] trait PlayIdentifiers[Underlying] extends Identifiers[Underlying] {
-  self: UnicornPlayLike[Underlying] =>
+protected[unicorn] trait PlayIdentifiers[Underlying] {
+  self: PlayIdentifiersImpl[Underlying] with Identifiers[Underlying] =>
 
   abstract class PlayCompanion[Id <: BaseId]
     extends CoreCompanion[Id]
