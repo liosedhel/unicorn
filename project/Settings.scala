@@ -13,7 +13,7 @@ object Settings {
   // settings for ALL modules, including parent
   val core = Seq(
     organization := "org.virtuslab",
-    scalaVersion := "2.11.6",
+    scalaVersion := "2.11.7",
     crossScalaVersions := Seq("2.10.4", scalaVersion.value),
     releaseCrossBuild := true,
     releasePublishArtifactsAction := PgpKeys.publishSigned.value,

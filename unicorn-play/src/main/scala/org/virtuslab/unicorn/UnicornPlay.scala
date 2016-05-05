@@ -21,19 +21,15 @@ abstract class UnicornPlayLike[Underlying](dbConfig: DatabaseConfig[JdbcProfile]
 abstract class UnicornPlay[Underlying](dbConfig: DatabaseConfig[JdbcProfile])
   extends UnicornPlayLike[Underlying](dbConfig)
 
-class LongUnicornPlay @Inject() (dbConfigProvider: DatabaseConfig[JdbcProfile]) extends UnicornPlay[Long](dbConfigProvider) {
-  override val identifiers: Identifiers[Long] = LongUnicornPlayIdentifiers
-}
+class LongUnicornPlay @Inject() (dbConfigProvider: DatabaseConfig[JdbcProfile]) extends UnicornPlay[Long](dbConfigProvider)
 
 object LongUnicornPlayIdentifiers extends PlayIdentifiersImpl[Long] {
   override val ordering: Ordering[Long] = implicitly[Ordering[Long]]
-  override type IdCompanion[Id <: BaseId] = PlayCompanion[Id]
+  override type IdCompanion[Id <: BaseId[Long]] = PlayCompanion[Id]
 }
 
 abstract class PlayIdentifiersImpl[Underlying](implicit val underlyingFormatter: Formatter[Underlying],
-    val underlyingFormat: Format[Underlying],
-    val underlyingQueryStringBinder: QueryStringBindable[Underlying],
-    val underlyingPathBinder: PathBindable[Underlying],
-    val ordering: Ordering[Underlying]) extends PlayIdentifiers[Underlying] with Identifiers[Underlying] {
-
-}
+  val underlyingFormat: Format[Underlying],
+  val underlyingQueryStringBinder: QueryStringBindable[Underlying],
+  val underlyingPathBinder: PathBindable[Underlying],
+  val ordering: Ordering[Underlying]) extends PlayIdentifiers[Underlying] with Identifiers[Underlying]

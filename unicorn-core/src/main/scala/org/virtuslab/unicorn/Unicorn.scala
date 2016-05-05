@@ -16,7 +16,6 @@ trait HasJdbcDriver {
  */
 trait Unicorn[Underlying]
     extends Tables[Underlying]
-    with IdentifiersWrapper[Underlying]
     with Repositories[Underlying] {
   self: HasJdbcDriver =>
 }

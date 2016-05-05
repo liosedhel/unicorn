@@ -7,7 +7,7 @@ import play.api.libs.json._
 
 class PlayCompanionTest extends BasePlayTest {
 
-  case class UserId(id: Long) extends BaseId
+  case class UserId(id: Long) extends BaseId[Long]
 
   object UserId extends IdCompanion[UserId]
 
