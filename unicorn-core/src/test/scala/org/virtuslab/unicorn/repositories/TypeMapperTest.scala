@@ -4,7 +4,7 @@ import org.joda.time.{ DateTime, Duration, LocalDate }
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{ Seconds, Span }
-import org.virtuslab.unicorn.TestUnicorn.driver.api._
+import org.virtuslab.unicorn.TestUnicorn.profile.api._
 import org.virtuslab.unicorn.{ BaseTest, LongTestUnicorn }
 
 import scala.concurrent.ExecutionContext.Implicits.global

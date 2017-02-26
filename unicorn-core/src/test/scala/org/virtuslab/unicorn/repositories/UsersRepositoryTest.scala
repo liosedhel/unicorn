@@ -7,11 +7,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 trait AbstractUserTable {
 
-  val unicorn: Unicorn[Long] with HasJdbcDriver
+  val unicorn: Unicorn[Long] with HasJdbcProfile
   val identifiers: Identifiers[Long]
 
   import unicorn._
-  import unicorn.driver.api._
+  import unicorn.profile.api._
   import identifiers._
 
   case class UserId(id: Long) extends BaseId[Long]

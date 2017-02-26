@@ -1,8 +1,8 @@
 package org.virtuslab.unicorn
 
 import com.google.inject.{ Inject, Singleton }
-import slick.backend.DatabaseConfig
-import slick.driver.JdbcProfile
+import slick.basic.DatabaseConfig
+import slick.jdbc.JdbcProfile
 import slick.lifted.{ ProvenShape, Tag => SlickTag }
 import play.api.data.format.Formats._
 
@@ -26,7 +26,7 @@ trait UserQuery {
   self: UnicornWrapper[String] =>
 
   import unicorn._
-  import unicorn.driver.api._
+  import unicorn.profile.api._
 
   class UserTable(tag: SlickTag) extends IdTable[UserId, UserRow](tag, "test") {
     def name = column[String]("name")
